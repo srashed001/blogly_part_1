@@ -1,0 +1,11 @@
+input {
+    width: 400px; 
+    margin-top: 5px; 
+    margin-bottom: 5px;
+
+}
+
+img.profile_img {
+    width: 400;
+    height: 300;
+}
