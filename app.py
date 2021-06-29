@@ -105,15 +105,15 @@ def create_new_post(user_id):
     title = request.form['title']
     content = request.form['content']
     tags = request.form.getlist('post_tag')
+    new_post_tags = Tag.query.filter(Tag.id.in_(tags)).all()
+
    
-    new_post = Post(title=title, content=content, user_id=user_id)
+    new_post = Post(title=title, content=content, user_id=user_id, tags = new_post_tags)
 
     db.session.add(new_post)
     db.session.commit()
 
-    for tag in tags:
-        db.session.add(PostTag(post_id=new_post.id, tag_id=tag))
-        db.session.commit()
+    # for tag in tags:
    
     return redirect(f'/users/{user_id}')
 
@@ -132,9 +132,10 @@ def render_edit_post_form(post_id):
     """shows form to edit post"""
 
     post = Post.query.get_or_404(post_id)
+    tags = Tag.query.all()
     user = post.users
 
-    return render_template('edit_post.html', post = post, user = user)
+    return render_template('edit_post.html', post = post, user = user, tags = tags)
 
 @app.route('/posts/<int:post_id>/edit', methods=["POST"])
 def post_post_edit(post_id):
@@ -143,10 +144,12 @@ def post_post_edit(post_id):
     post = Post.query.get_or_404(post_id)
     post.title = request.form['title']
     post.content = request.form['content']
+    tags = request.form.getlist('post_tag')
+    post.tags = Tag.query.filter(Tag.id.in_(tags)).all()
 
     db.session.add(post)
     db.session.commit()
-
+ 
     return redirect(f'/posts/{post_id}')
 
 @app.route('/posts/<int:post_id>/delete', methods=["POST"])
