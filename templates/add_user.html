@@ -3,15 +3,26 @@
 {% block title %}Add New User{% endblock %}
 
 {% block content %}
-<h1>Create a user</h1>
-<form action="/users/new" method="POST">
-    <label for="first_name">First Name</label><br>
-    <input type="text" name="first_name" id="first_name" placeholder="Enter a first name"><br>
-    <label for="last_name">Last Name</label><br>
-    <input type="text" name="last_name" id="last_name" placeholder="Enter a last name"><br>
-    <label for="img_url">Image URL</label><br>
-    <input type="text" name="img_url" id="img_url" placeholder="Provide an image of this user"><br>
-    <button>Add</button>
-</form>
+<div class="container my-5">
+    <form action="/users/new" method="POST" class="p-3 border rounded shadow">
+        <h1>Create a user</h1>
+        <div class="row mb-3">
+            <div class="col">
+                <label class="form-label" for="first_name">First Name</label>
+                <input type="text" name="first_name" id="first_name" placeholder="First Name" class="form-control">
+            </div>
+            <div class="col">
+                <label class="form-label" for="last_name">Last Name</label>
+                <input type="text" name="last_name" id="last_name" placeholder="Last Name" class="form-control">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="img_url" class="form-label">Image URL</label>
+            <input type="text" name="img_url" id="img_url" placeholder="Provide an image of this user" class="form-control">
+        </div>
+        <button class="btn btn-primary">Add</button>
+        <a href="/users" role="button" class="my-3 btn btn-light">Cancel</a>
+    </form>
+</div>
 
 {% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}{{tag.name}}{% endblock %}
+
+{% block content %}
+
+    <div class="container my-5">
+        <div class="card w-75 shadow" style="width: 18rem;">
+            <div class="card-header">Tag Details</div>
+            <div class="card-body">
+                <h1 class="card-title">#{{tag.name}}</h1>
+                <h4 class="card-text">Posts</h4>
+                <div class="list-group list-group-flush">
+                    {% for post in posts %}
+                    <a href="/posts/{{post.id}}" class="list-group-item list-group-item-action">{{post.title}}</a>
+                    {% endfor %}
+                </div>
+                <div class="card-link my-3">
+                    <a href="/tags/{{tag.id}}/edit" role="button" class="btn btn-primary">Edit</a>
+                    <a href="/tags" role="button" class="btn btn-light">Cancel</a>
+                    <form action="/tags/{{tag.id}}/delete" method="POST" class="d-inline">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
